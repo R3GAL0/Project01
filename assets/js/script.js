@@ -1,63 +1,7 @@
 
-
-// using serpstack api for guided google searches
-// https://serpstack.com/documentation
-
-// https://serpapi.com/google-local-api - don't have a key
-// https://serpapi.com/search?access_key=2d5564eefce3b82949423a6abe0d1c0e&q=costco - broken key
-
-// var apiKey = '2d5564eefce3b82949423a6abe0d1c0e';
-
-// query structure (cant use https)
-// http://api.serpstack.com/search?access_key=YOUR_ACCESS_KEY&query=mcdonalds
-
-// want 'local_results.address' .rating .price .title .url
-
-
-// http://api.serpstack.com/search?access_key=2d5564eefce3b82949423a6abe0d1c0e&query=costco
-
-
-// -------------------------------------------------------------------------------------
-
 // google web search api
 
 var apiKey = 'b8ddaabfe8msha35204713d89a7bp1c84d9jsn7aa75155a376'
-
-// https://google-web-search1.p.rapidapi.com/?X-RapidAPI-Key:b8ddaabfe8msha35204713d89a7bp1c84d9jsn7aa75155a376&X-RapidAPI-Host:google-web-search1.p.rapidapi.com&query=World%20Cup&limit=20&related_keywords=true
-
-
-// var query = 'mcdonalds-near=markham,ON';
-// const url = 'https://google-web-search1.p.rapidapi.com/?query=' + query + '&limit=20&related_keywords=true';
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': apiKey,
-// 		'X-RapidAPI-Host': 'google-web-search1.p.rapidapi.com'
-// 	}
-// };
-
-// try {
-// 	const response = await fetch(url, options);
-// 	const result = await response.text();
-// 	console.log(result);
-// } catch (error) {
-// 	console.error(error);
-// }
-
-// fetch(url, options)
-//     .then(function (response){
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data);
-//     });
-
-// // ------------------------------------
-// curl --request GET \
-// 	--url 'https://google-web-search1.p.rapidapi.com/?query=World%20Cup&limit=20&related_keywords=true' \
-// 	--header 'X-RapidAPI-Host: google-web-search1.p.rapidapi.com' \
-// 	--header 'X-RapidAPI-Key: b8ddaabfe8msha35204713d89a7bp1c84d9jsn7aa75155a376'
-
 
 // google places api key
 // AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc
@@ -75,20 +19,70 @@ var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=rest
 var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + query + '&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
         //    https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20Sydney&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc
 var proxyurl = "https://cors-anywhere.herokuapp.com/";
+// https://stackoverflow.com/questions/28359730/google-place-api-no-access-control-allow-origin-header-is-present-on-the-req
 
-fetch(proxyurl + url)
-    .then(function (response){
-        console.log(response);
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-    });
+function placeLocations(url){
+    var proxyurl = "https://cors-anywhere.herokuapp.com/";
+    fetch(proxyurl + url)
+        .then(function (response){
+            console.log(response);
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        });
 
-    // const url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=500&key=[API KEY]"; // site that doesn’t send Access-Control-*
-    // fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-    // .then(response => response.json())
-    // .then(contents => console.log(contents))
+    var locations = [];
+    for (var i=0; i<data.length; i++){
+        locations.push(data.results[i].place_id);
+    }
+    return locations;
+}
 
 
-    // https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mcdonalds&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc
+// https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mcdonalds&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc
+
+// retrieve specifications from index.html
+// input into query
+// fetch locations
+// fetch location details
+// print location details
+
+var foodTypeEl = document.querySelector('#filter-food-options');
+var userLocationEl = document.querySelector('#filter-user-location');
+var pricesEl = document.querySelector('#filter-div-prices');
+var searchBtnEl = document.querySelector('#search-button');
+
+searchBtnEl.addEventListener('click', function (){
+    var searchQuery = $('#search-bar').val();
+    // if statements to check the checkboxes
+    // if true add to query
+    // ethnic food options --------------------------------
+    if ($(foodTypeEl).children().eq(1).children().eq(0).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20italian');
+    } // italian
+    if ($(foodTypeEl).children().eq(1).children().eq(1).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20mexican');
+    } // mexican
+    if ($(foodTypeEl).children().eq(1).children().eq(2).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20chinese');
+    } // chinese
+    // price range -----------------------------------------
+    if ($(pricesEl).children().eq(1).children().eq(0).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20cheap');
+    } // cheap
+    if ($(pricesEl).children().eq(1).children().eq(1).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20moderately%20priced');
+    } // moderately priced
+    if ($(pricesEl).children().eq(1).children().eq(2).children().eq(0).prop('checked')){
+        searchQuery = searchQuery.concat('%20expensive');
+    } // expensive
+
+    // alternative location
+    if ($(userLocationEl).children().eq(1).val() != ''){
+        var locationTemp = '%20' + $(userLocationEl).children().eq(1).val().replace(' ', '%20');
+        searchQuery = searchQuery.concat(locationTemp);
+    }
+    console.log('final: ' + searchQuery);
+
+});
