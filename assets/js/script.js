@@ -14,7 +14,8 @@ var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + 
 var proxyurl = "https://cors-anywhere.herokuapp.com/";
 // https://stackoverflow.com/questions/28359730/google-place-api-no-access-control-allow-origin-header-is-present-on-the-req
 
-function placeLocations(url) {
+function placeLocations(query) {
+    var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + query + '&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
     var proxyurl = "https://cors-anywhere.herokuapp.com/";
     // var locations = [];
     fetch(proxyurl + url)
@@ -24,11 +25,12 @@ function placeLocations(url) {
         })
         .then(function (data) {
             console.log(data);
-            for (var i=0; i<data.length; i++){
+            for (var i=0; i<data.results.length; i++){
                 // locations.push(data.results[i].place_id);
+                console.log('place id ' + i + ' :: ' + data.results[i].place_id);
                 locationDetails(data.results[i].place_id);
             }
-            return locations;
+            // return locations;
         });
 
 }
@@ -75,8 +77,8 @@ async function locationDetails(id) {
 
 }
 
-var test = locationDetails(idTest);
-console.log('outside the function' + test);
+// var test = locationDetails(idTest);
+// console.log('outside the function' + test);
 
 
 
@@ -115,6 +117,8 @@ searchBtnEl.addEventListener('click', function () {
     // perform a fetch with user query
     // perform a fetch with location id
     // print details to the page
+
+    placeLocations(searchQuery);
 });
 
 
