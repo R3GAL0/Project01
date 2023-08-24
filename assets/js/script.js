@@ -57,13 +57,19 @@ async function locationDetails(id) {
                 resturant[3] = 'No';
             }
             console.log('resturant: ' + resturant);
-            // print details to the page
+            // print details to the page, with an anchor link and favourite button
             var li = document.createElement('li');
             var btn = document.createElement('button');
-            li.textContent = 'Name: ' + resturant[0] + '\n Address: ' + resturant[1] + '\nGoogle Maps URL: ' + resturant[5] + '\n Wheelchair Accessable: ' + resturant[3] + '\n Business Status: ' + resturant[4];
+            var anchor = document.createElement('a');
+            li.textContent = 'Name: ' + resturant[0] + '\n Address: ' + resturant[1] + '\n Wheelchair Accessable: ' + resturant[3] + '\n Business Status: ' + resturant[4] + '    ';
+            anchor.textContent = 'Google Maps URL';
+            anchor.setAttribute('href', resturant[5]);
+            anchor.style.color = 'blue';
+            btn.textContent = 'Favourite';
+            btn.style.color = 'red';
             searchResultsEl.append(li)
-            searchResultsEl.li.append(btn);
-            // make the url an anchor tag, add a favourite button
+            searchResultsEl.lastChild.appendChild(anchor);
+            searchResultsEl.lastChild.appendChild(btn);
         });
 
 
