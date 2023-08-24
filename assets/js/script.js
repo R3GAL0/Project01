@@ -6,6 +6,9 @@ var favouritesEl = document.querySelector('#favourites-list');
 var searchResultsEl = document.querySelector('#search-results');
 // google maps places & details api key
 var apiKey = 'AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc'
+// api documentation
+// https://developers.google.com/maps/documentation/places/web-service/search-find-place
+// https://developers.google.com/maps/documentation/places/web-service/details
 
 
 // use place search to get a place_id from a general query, then place details for details on that id

@@ -9,12 +9,13 @@
     <title>Nearby Restaurant Finder</title>
 
 </head>
-<body class="bg-white"> <!-- You can add Tailwind CSS classes to the body tag for a global style -->
+<body class="bg-gray-300"> <!-- You can add Tailwind CSS classes to the body tag for a global style -->
 
     <!-- Splash Screen -->
-    <div id="splash-screen" class="flex flex-col items-center justify-center h-screen">
+    <!-- took out 'h-screen' so you dont have to scroll to use -->
+    <div id="splash-screen" class="flex flex-row items-center justify-center">
         <!-- Logo and App Name -->
-        <img src="" alt="app-logo" class="w-16 h-16 mb-4"> <!-- Replace 'app-logo.png' with your app's logo file -->
+        <img src="./assets/images/logo2.jpg" alt="app-logo" class="w-16 h-16 mb-4"> <!-- Replace 'app-logo.png' with your app's logo file -->
         <h1 class="text-3xl font-semibold">SAM's Restaurant Finder</h1>
     </div>
 
@@ -73,9 +74,10 @@
 <ul id="search-results"></ul>
 
         <!-- Map View Button -->
-        <div id="map" style="height: 400px;"></div>
+        <!-- This is a feature you have to pay for. So it can't be implemented atm. -->
+        <!-- <div id="map" style="height: 400px;"></div>
         <button id="map-view-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 mx-auto block hover:bg-blue-600 focus:outline-none">Switch to Map View</button>
-    </div>
+    </div> -->
 
 
 
