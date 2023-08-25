@@ -126,3 +126,9 @@ searchBtnEl.addEventListener('click', function () {
 
 
 // event listener for liked resturants
+
+// for modal window
+var modalEl= document.getElementById('open-modal-button');
+modalEl.addEventListener('click', function () {
+    $('#myModal').modal('show');
+});
