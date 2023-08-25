@@ -139,6 +139,7 @@ searchBtnEl.addEventListener('click', function () {
 });
 
 
+
 // add event listener to btn for fav add + delete
 document.addEventListener('click', function (event) {
     // get id from button parent
@@ -181,4 +182,11 @@ function genFavs (favouriteArr) {
     }
 }
 genFavs(favouriteArr);
+
+
+// for modal window
+var modalEl= document.getElementById('open-modal-button');
+modalEl.addEventListener('click', function () {
+    $('#myModal').modal('show');
+});
 
