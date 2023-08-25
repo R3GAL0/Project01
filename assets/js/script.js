@@ -4,6 +4,7 @@ var pricesEl = document.querySelector('#filter-div-prices');
 var searchBtnEl = document.querySelector('#search-button');
 var favouritesEl = document.querySelector('#favourites-list');
 var searchResultsEl = document.querySelector('#search-results');
+var favouriteArr = JSON.parse(localStorage.getItem('favouriteArr')) || [];
 // google maps places & details api key
 var apiKey = 'AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc'
 // api documentation
@@ -17,6 +18,7 @@ var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + 
 var proxyurl = "https://cors-anywhere.herokuapp.com/";
 // https://stackoverflow.com/questions/28359730/google-place-api-no-access-control-allow-origin-header-is-present-on-the-req
 
+// fetches place_id s when given a querry and calls the location details method
 function placeLocations(query) {
     var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + query + '&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
     var proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -28,10 +30,10 @@ function placeLocations(query) {
         })
         .then(function (data) {
             console.log(data);
-            for (var i=0; i<data.results.length; i++){
+            for (var i = 0; i < data.results.length; i++) {
                 // locations.push(data.results[i].place_id);
                 console.log('place id ' + i + ' :: ' + data.results[i].place_id);
-                locationDetails(data.results[i].place_id);
+                locationDetails(data.results[i].place_id, i, 'gen');
             }
             // return locations;
         });
@@ -45,7 +47,9 @@ function placeLocations(query) {
 
 // place_id = ChIJD_SfHlk5tokRjbCVXAaBy3A
 var idTest = 'ChIJD_SfHlk5tokRjbCVXAaBy3A';
-async function locationDetails(id) {
+// this function fetches location details from a place_id and adds the required HTML elements to the page
+// id is required for the url to generate the details, index is to later append with a data-X attribute, location is to track if the function is being called to generate favourites or the basic search function.
+function locationDetails(id, index, location) {
     var proxyurl = "https://cors-anywhere.herokuapp.com/";
     var locationURL = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=' + id + '&fields=formatted_address,business_status,icon,name,type,url,wheelchair_accessible_entrance&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
     // does type contain resturant, is the buisness_status=true
@@ -70,11 +74,21 @@ async function locationDetails(id) {
             anchor.textContent = 'Google Maps URL';
             anchor.setAttribute('href', resturant[5]);
             anchor.style.color = 'blue';
-            btn.textContent = 'Favourite';
             btn.style.color = 'red';
-            searchResultsEl.append(li)
-            searchResultsEl.lastChild.appendChild(anchor);
-            searchResultsEl.lastChild.appendChild(btn);
+            if (location != 'fav'){
+                btn.setAttribute('data-generated', index);
+                btn.textContent = 'Favourite';
+                searchResultsEl.append(li)
+                searchResultsEl.lastChild.appendChild(anchor);
+                searchResultsEl.lastChild.appendChild(btn);
+            } else {
+                btn.setAttribute('data-fav', index);
+                btn.textContent = 'UN-Favourite';
+                favouritesEl.append(li)
+                favouritesEl.lastChild.appendChild(anchor);
+                favouritesEl.lastChild.appendChild(btn);
+            }
+            btn.setAttribute('data-id', id);
         });
 
 
@@ -84,7 +98,7 @@ async function locationDetails(id) {
 // console.log('outside the function' + test);
 
 
-
+// this formats the search querry and calls the fetch functions when search is pressed
 searchBtnEl.addEventListener('click', function () {
     var searchQuery = $('#search-bar').val();
     // if statements to check the checkboxes
@@ -125,10 +139,54 @@ searchBtnEl.addEventListener('click', function () {
 });
 
 
-// event listener for liked resturants
+
+// add event listener to btn for fav add + delete
+document.addEventListener('click', function (event) {
+    // get id from button parent
+    var indexGen = event.target.getAttribute('data-generated');
+    if (indexGen == null){
+    } else if (!isNaN(indeGen)){
+        // push to array
+        var placeID = event.target.getAttribute('data-id');
+        favouriteArr.push(placeID);
+        // store locally
+        localStorage.setItem('favouriteArr', JSON.stringify(favouriteArr));
+    }
+
+    // method to delete favourites
+    var indexFav = event.target.getAttribute('data-fav');
+    if (indexFav == null){
+    } else if (!isNaN(indexFav)){
+        // empty ele from fav array
+        var placeID = event.target.getAttribute('data-id');
+        // filter to remove the old id from the favourites array
+            // favouriteArr = favouriteArr.filter(compare(favouriteItem, placeID));
+        var arrayTemp = [];
+        for (var i=0; i < favouriteArr.length; i++) {
+            if (favouriteArr[i] != placeID){
+                arrayTemp.push(favouriteArr[i]);
+            }
+        }
+        favouriteArr = arrayTemp;
+        // store locally
+        localStorage.setItem('favouriteArr', JSON.stringify(favouriteArr));
+
+    }
+
+})
+
+// generate fav list
+function genFavs (favouriteArr) {
+    for (var i=0; i < favouriteArr.length; i++){
+        locationDetails(favouriteArr[i], i, 'fav');
+    }
+}
+genFavs(favouriteArr);
+
 
 // for modal window
 var modalEl= document.getElementById('open-modal-button');
 modalEl.addEventListener('click', function () {
     $('#myModal').modal('show');
 });
+
