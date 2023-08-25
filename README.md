@@ -2,7 +2,7 @@
 
 [Project 1 for Sarah Naveed, Ariana Vinamagua, and Max Walent]
 
-<a href='https://r3gal0.github.io/SAMs-Restaurant-Locator/'>Deployed Link</a>
+<a href='https://r3gal0.github.io/Project01/'>Deployed Link</a>
 
 ## Description
 
