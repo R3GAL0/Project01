@@ -145,7 +145,7 @@ document.addEventListener('click', function (event) {
     // get id from button parent
     var indexGen = event.target.getAttribute('data-generated');
     if (indexGen == null){
-    } else if (!isNaN(indeGen)){
+    } else if (!isNaN(indexGen)){
         // push to array
         var placeID = event.target.getAttribute('data-id');
         favouriteArr.push(placeID);

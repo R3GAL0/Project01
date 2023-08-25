@@ -1,5 +1,34 @@
+/* Adds features to the button in the lists*/
 ul li button {
     padding: 5px;
     border: 2px;
     border-color: black;
+}
+
+/*adds features to the headings */
+h3{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: black;
+    margin: 10px;
+
+}
+
+.btn{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*The list have the following features*/
+#favorites-list,
+#search-results{
+    padding: 10px;
+    margin: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    list-style: square;
+
 }
