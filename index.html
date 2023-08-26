@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="bg-gray-300"> <!-- You can add Tailwind CSS classes to the body tag for a global style -->
+<body class="bg-gray-300 modal-open"> <!-- You can add Tailwind CSS classes to the body tag for a global style -->
 
     <!-- Splash Screen -->
     <!-- took out 'h-screen' so you dont have to scroll to use -->
@@ -23,48 +23,105 @@
         <!-- Replace 'app-logo.png' with your app's logo file -->
         <h1 class="text-6xl font-semibold ml-4">SAM's Restaurant Finder</h1>
     </div>
- <!--search button-->
+    <!--search button-->
+
+
+
+
+    <!-- Modal: Currently non-functional -->
     
-    
-    <a href="#" id="open-modal-button" data-toggle="modal" data-target="#myModal" class="btn btn-primary search-button">Search</a>
-    
-    
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <!-- <a href="#" id="open-modal-button" data-toggle="modal" data-target="#myModal"
+        class="btn btn-primary search-button">Search</a> -->
+
+
+    <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" style="display: none" aria-hidden="true" aria-labelledby="new-project-modal-label">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Restaurant Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-gray-600">Rating</p>
-                    <input type="text" placeholder="Input 1"
-                        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
-                    <p class="text-gray-600">Distance</p>
-                    <input type="text" placeholder="Input 2"
-                        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
-                    <p class="text-gray-600">Price Range</p>
-                    <input type="text" placeholder="Input 3"
-                        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
+                <form id="modal-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Restaurant Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-gray-600">Food Type</p>
+                        <input type="text" placeholder="Food Type"
+                            class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
+                        <p class="text-gray-600">Location</p>
+                        <input type="text" placeholder="Location"
+                            class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
+                        <p class="text-gray-600">Price Range</p>
+                        <input type="text" placeholder="Price Range"
+                            class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 mt-2">
 
-                    <!-- Search button inside the modal -->
-                    <button type="button" class="btn btn-primary mt-3">Search</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                        <!-- Search button inside the modal -->
+                        <!-- <button type="submit" class="btn btn-primary mt-3 submit-button" >Submit</button>
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
+        </div> 
+    </div> -->
 
-  
-<h3>Favourites List</h3>
+
+
+    <!-- Home Screen -->
+    <div id="home">
+        <!-- Header with Search Bar -->
+        <header class="bg-white shadow-lg p-4">
+            <div class="max-w-screen-md mx-auto">
+                <input type="text" id="search-bar" placeholder="Search for restaurants..." class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                <button id="search-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-600 focus:outline-none">Search</button>
+            </div>
+        </header>
+
+        <!-- Filter Options -->
+        <div id="filter-div-prices" class="bg-white p-4">
+            <label class="block mb-2 font-semibold">Filter by Price:</label>
+            <div class="flex items-center space-x-4">
+                <label class="flex items-center">
+                    <input type="checkbox" id="cheap" name="price-filter" value="$" class="mr-2"> $
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" id="moderate" name="price-filter" value="$$" class="mr-2"> $$
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" id="expensive" name="price-filter" value="$$$" class="mr-2"> $$$
+                </label>
+            
+        </div>
+
+        </div>
+        <!-- Filter Options -->
+<div id="filter-food-options" class="bg-white p-4">
+
+    <label class="block mt-4 font-semibold">Filter by Food Type:</label>
+    <div class="flex items-center space-x-4">
+        <label class="flex items-center">
+            <input type="checkbox" name="food-filter" value="Italian" class="mr-2"> Italian
+        </label>
+        <label class="flex items-center">
+            <input type="checkbox" name="food-filter" value="Mexican" class="mr-2"> Mexican
+        </label>
+        <label class="flex items-center">
+            <input type="checkbox" name="food-filter" value="Chinese" class="mr-2"> Chinese
+        </label>
+        <!-- Add more food types as needed -->
+    </div>
+</div>
+<!-- Filter Options -->
+<div id="filter-options" class="bg-white p-4">
+    <label class="block mt-4 font-semibold">Filter by Location:</label>
+    <input type="text" id="location-filter" placeholder="Enter city or zip code" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none">
+</div>
+
+
+
+    <!-- Lists generated by JS -->
+    <h3>Favourites List</h3>
     <ul id="favourites-list"></ul>
     <hr />
-<h3>Search Results</h3>
+    <h3>Search Results</h3>
     <ul id="search-results"></ul>
 
     <!-- Map View Button -->

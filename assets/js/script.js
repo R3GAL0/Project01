@@ -1,6 +1,8 @@
 var foodTypeEl = document.querySelector('#filter-food-options');
-var userLocationEl = document.querySelector('#filter-user-location');
+var userLocationEl = document.querySelector('#location-filter');
 var pricesEl = document.querySelector('#filter-div-prices');
+//
+// let submitFormEl = document.getElementById('modal-form');
 var searchBtnEl = document.querySelector('#search-button');
 var favouritesEl = document.querySelector('#favourites-list');
 var searchResultsEl = document.querySelector('#search-results');
@@ -13,9 +15,9 @@ var apiKey = 'AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc'
 
 
 // use place search to get a place_id from a general query, then place details for details on that id
-var query = 'indian%20food';
-var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + query + '&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
-var proxyurl = "https://cors-anywhere.herokuapp.com/";
+// var query = 'indian%20food';
+// var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + query + '&key=AIzaSyBWAZHdf5zRqq6liQdqOjUEEIqyxkdDzAc';
+// var proxyurl = "https://cors-anywhere.herokuapp.com/";
 // https://stackoverflow.com/questions/28359730/google-place-api-no-access-control-allow-origin-header-is-present-on-the-req
 
 // fetches place_id s when given a querry and calls the location details method
@@ -31,8 +33,8 @@ function placeLocations(query) {
         .then(function (data) {
             console.log(data);
             for (var i = 0; i < data.results.length; i++) {
-                // locations.push(data.results[i].place_id);
-                console.log('place id ' + i + ' :: ' + data.results[i].place_id);
+                // // locations.push(data.results[i].place_id);
+                // console.log('place id ' + i + ' :: ' + data.results[i].place_id);
                 locationDetails(data.results[i].place_id, i, 'gen');
             }
             // return locations;
@@ -58,14 +60,14 @@ function locationDetails(id, index, location) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
             var resturant = [data.result.name, data.result.formatted_address, data.result.icon, data.result.wheelchair_accessible_entrance, data.result.business_status, data.result.url];
             if (resturant[3]) {
                 resturant[3] = 'Yes';
             } else {
                 resturant[3] = 'No';
             }
-            console.log('resturant: ' + resturant);
+            // console.log('resturant: ' + resturant);
             // print details to the page, with an anchor link and favourite button
             var li = document.createElement('li');
             var btn = document.createElement('button');
@@ -99,11 +101,28 @@ function locationDetails(id, index, location) {
 
 
 // this formats the search querry and calls the fetch functions when search is pressed
-searchBtnEl.addEventListener('click', function () {
+// add to submitBtnEl was searchBtnEl
+
+// document.addEventListener('DOMContentLoaded', function() {
+// });
+
+// submitFormEl.addEventListener("submit", function (event) {
+searchBtnEl.addEventListener("click", function (event) {
+
     var searchQuery = $('#search-bar').val();
+
     // if statements to check the checkboxes
     // if true add to query
-    // ethnic food options --------------------------------
+    
+    // takes food type criteria
+
+    // to be used if modal is implemented
+    // if ($('#modal-form').children().eq(1).children().eq(1).val() != '') {
+    //     var searchTemp = '%20' + $('#modal-form').children().eq(1).children().eq(1).val().replace(' ', '%20');
+    //     searchQuery = searchQuery.concat(searchTemp);
+    // }
+
+
     if ($(foodTypeEl).children().eq(1).children().eq(0).children().eq(0).prop('checked')) {
         searchQuery = searchQuery.concat('%20italian');
     } // italian
@@ -113,7 +132,25 @@ searchBtnEl.addEventListener('click', function () {
     if ($(foodTypeEl).children().eq(1).children().eq(2).children().eq(0).prop('checked')) {
         searchQuery = searchQuery.concat('%20chinese');
     } // chinese
+
+    // takes location criteria
+    // if ($('#modal-form').children().eq(1).children().eq(3).val() != '') {
+    //     var locationTemp = '%20' + $('#modal-form').children().eq(1).children().eq(3).val().replace(' ', '%20');
+    //     searchQuery = searchQuery.concat(locationTemp);
+    // }
+    if ($(userLocationEl).val() != '') {
+        var locationTemp = '%20' + $(userLocationEl).val().replace(' ', '%20');
+        searchQuery = searchQuery.concat(locationTemp);
+    }
+
+    
     // price range -----------------------------------------
+    // if ($('#modal-form').children().eq(1).children().eq(5).val() != '') {
+    //     var priceTemp = '%20' + $('#modal-form').children().eq(1).children().eq(5).val().replace(' ', '%20');
+    //     searchQuery = searchQuery.concat(priceTemp);
+    // }
+
+    // old price range
     if ($(pricesEl).children().eq(1).children().eq(0).children().eq(0).prop('checked')) {
         searchQuery = searchQuery.concat('%20cheap');
     } // cheap
@@ -124,11 +161,7 @@ searchBtnEl.addEventListener('click', function () {
         searchQuery = searchQuery.concat('%20expensive');
     } // expensive
 
-    // alternative location ------------------------------------
-    if ($(userLocationEl).children().eq(1).val() != '') {
-        var locationTemp = '%20' + $(userLocationEl).children().eq(1).val().replace(' ', '%20');
-        searchQuery = searchQuery.concat(locationTemp);
-    }
+
     console.log('final: ' + searchQuery);
 
     // perform a fetch with user query
@@ -184,9 +217,9 @@ function genFavs (favouriteArr) {
 genFavs(favouriteArr);
 
 
-// for modal window
-var modalEl= document.getElementById('open-modal-button');
-modalEl.addEventListener('click', function () {
-    $('#myModal').modal('show');
-});
+// // for modal window
+// var modalEl= document.getElementById('open-modal-button');
+// modalEl.addEventListener('click', function () {
+//     $('#myModal').modal('show');
+// });
 
