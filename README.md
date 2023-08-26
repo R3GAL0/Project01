@@ -2,7 +2,7 @@
 
 [Project 1 for Sarah Naveed, Ariana Vinamagua, and Max Walent]
 
-<a href='https://r3gal0.github.io/Project01/'>Deployed Link</a>
+<a href='https://r3gal0.github.io/Project01/'>Go to Website here</a>
 
 ## Description
 
@@ -10,7 +10,16 @@ Before you can use the app you need to initate a proxy demo (<a href='https://co
 
 An app to show you restaurants in an area that match user provided criteria. TBD: A favourite function to save restaurants the user is interested in or like to eat at.
 
-<img src='./assets/images/img1.JPG' alt='Image of the website'/>
+<img src='./assets/images/second.png' alt='Image of the website'/>
+
+
+## Usage
+
+The purpose of this web application is to help users find the nearest restaurant or food places closest to them. The user can also specify what type of food they crave, or their budget. Then it displays all the restaurant options. 
+
+## Installation
+
+Our team created a repository in which each of us cloned it into our terminal. We then created a project called "SAM's Restaurant Locator" and added tasks that each of our group had to fulfill. The files for html, javascript and css were created. 
 
 ## License
 
