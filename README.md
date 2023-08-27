@@ -10,7 +10,7 @@ Before you can use the app you need to initate a proxy demo (<a href='https://co
 
 An app to show you restaurants in an area that match user provided criteria. TBD: A favourite function to save restaurants the user is interested in or like to eat at.
 
-<img src='./assets/images/second.png' alt='Image of the website'/>
+<img src='./assets/images/third.png' alt='Image of the website'/>
 
 
 ## Usage
