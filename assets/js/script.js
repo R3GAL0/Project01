@@ -72,7 +72,7 @@ function locationDetails(id, index, location) {
             var li = document.createElement('li');
             var btn = document.createElement('button');
             var anchor = document.createElement('a');
-            li.textContent = 'Name: ' + resturant[0] + '\n Address: ' + resturant[1] + '\n Wheelchair Accessable: ' + resturant[3] + '\n Business Status: ' + resturant[4] + '    ';
+            li.textContent = 'Name: ' + resturant[0] +', '+ '\n Address: ' + resturant[1] + '\n Wheelchair Accessible: ' + resturant[3] +', '+ '\n Business Status: ' + resturant[4] +', Link: '+ '    ';
             anchor.textContent = 'Google Maps URL';
             anchor.setAttribute('href', resturant[5]);
             anchor.style.color = 'blue';
