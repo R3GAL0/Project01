@@ -1,8 +1,10 @@
 /* Adds features to the button in the lists*/
 ul li button {
-    padding: 5px;
+    padding: 10px;
+    margin: 10px ;
     border: 2px;
-    border-color: black;
+    background-color: rgb(224, 139, 139);
+    display: block;
 }
 
 /*adds features to the headings */
@@ -15,20 +17,31 @@ h3{
 
 }
 
-.btn{
+/*It give the search button margin and some features */
+button{
     margin: 20px;
     display: flex;
     flex-direction: column;
 }
 
+/* Added better separation of the main options with
+different features*/
+header,
+#filter-div-prices,
+#filter-food-options,
+#filter-options{
+margin: 0 30px;
+padding: 20px;
+}
+
 /*The list have the following features*/
-#favorites-list,
-#search-results{
+ul{
     padding: 10px;
     margin: 24px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 15px;
     color: black;
     list-style: square;
+    text-align: -webkit-center;
 
 }
